@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<title>Ron Swanson Quote Machine</title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>Ron Swanson Quote Machine</h2>
+			<img src="/ron-swanson.png" alt="ron-swanson" @click="loadQuote" />
+
+			<h3>Push Ron's face to get a random quote!</h3>
+
+			<div class="quotediv">
+				<p>{{ quote }}</p>
+			</div>
+		</div>
+		<script>
+			let vm = new Vue({
+				el: '#app',
+				data: {
+					quote: 'TEST'
+				},
+				created: function() {
+					this.loadQuote()
+				},
+				methods: {
+					loadQuote() {
+						this.quote = 'Loading...'
+						axios
+							.get(
+								'http://ron-swanson-quotes.herokuapp.com/v2/quotes'
+							)
+							.then(result => {
+								this.quote = result.data[0]
+							})
+							.catch(err => {
+								this.quote = 'An Error occured:' + err
+							})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
