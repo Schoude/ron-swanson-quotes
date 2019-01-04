@@ -34,7 +34,7 @@
 						this.quote = 'Loading...'
 						axios
 							.get(
-								'http://ron-swanson-quotes.herokuapp.com/v2/quotes'
+								'https://ron-swanson-quotes.herokuapp.com/v2/quotes'
 							)
 							.then(result => {
 								this.quote = result.data[0]
